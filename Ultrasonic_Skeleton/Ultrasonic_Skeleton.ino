@@ -3,10 +3,10 @@
 #include "NewPing.h"
 
 // Hook up HC-SR04 with Trig and Echo to ESP32 Pins
-#define TRIG_PIN ？                  
-#define ECHO_PIN ？  
+#define TRIG_PIN 5        
+#define ECHO_PIN 4  
 // ESP 32 pin connected to ESP32
-#define LED ?
+#define LED 1
 
 // Maximum distance we want to ping for (in centimeters).
 #define MAX_DISTANCE 400
@@ -19,7 +19,7 @@ int value;
 
 void setup() {
   
-    Serial.begin(?); // Initialize the Serial Monitor and set a baud rate
+    Serial.begin(115200); // Initialize the Serial Monitor and set a baud rate
 }
 
 void loop() {
@@ -29,23 +29,24 @@ void loop() {
 
     // Print the distance to the Serial Monitor
     Serial.print("Distance: ");
-    Serial.print(?);
+    Serial.print(distance);
     Serial.println(" cm");
 
-    delay(?); // Delay 0.5s to avoid reading the distance too fast 
+    delay(500); // Delay 0.5s to avoid reading the distance too fast 
     
     // Distance > 10cm, LED is OFF
     // Distance< 10 cm, the closer the target, the brighter the LED 
     // set the duty cycle value in 8-bit (0-255) to use analogWrite() to generate PWM signal to set the LED brightness
-    if (?)
+    if (distance > 10 || distance == 0)
     {
-    value=?;
+    value=0;
     } else
-    {value=?;}
+    {value = map(distance, 0, 10, 255, 0);
+    value = constrain(value, 0, 255);}
     // print the duty cycle value 
     Serial.print("duty cycle value: ");
-    Serial.println(?); 
+    Serial.println(value); 
     // generate PWM signal to set the LED brightness
-    analogWrite(?,?);
+    analogWrite(LED,value);
 
 }
