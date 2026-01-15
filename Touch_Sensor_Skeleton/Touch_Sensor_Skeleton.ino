@@ -1,7 +1,7 @@
 /*Replace all the ? in the code to read the value touchRead(GPIO pin) returned.*/
 
-#define TOUCHPIN ?                    // ***Replace the ? with the GPIO pin you selected as touch pin
-#define LED ?                         // ***Replace the ? with the GPIO pin you selected to control LED
+#define TOUCHPIN 1                    // ***Replace the ? with the GPIO pin you selected as touch pin
+#define LED                    // ***Replace the ? with the GPIO pin you selected to control LED
 #define THRESHOLD 10000               // ***Observe the reading when the pin is touched. Then modify this threshold.***
 
 
