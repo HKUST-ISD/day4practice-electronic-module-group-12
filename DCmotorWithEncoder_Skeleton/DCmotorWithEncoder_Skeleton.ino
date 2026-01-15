@@ -1,10 +1,10 @@
 /*Change all the ? in the code and add code in ??? to Control the speed of rotation.*/
 
-#define IN1   ?  // Replace the ? with the GPIO pin you selected to connect IN1
-#define IN2   ?   // Replace the ? with the GPIO pin you selected to connect IN2
-#define A  ? // Replace the ? with the GPIO pin you selected to connect encoder A
-#define B  ? // Replace the ? with the GPIO pin you selected to connect encoder B
-#define PWM ?  // Replace the ? with the GPIO pin you selected to output PWM
+#define IN1   7  // Replace the ? with the GPIO pin you selected to connect IN1
+#define IN2   6   // Replace the ? with the GPIO pin you selected to connect IN2
+#define A  5 // Replace the ? with the GPIO pin you selected to connect encoder A
+#define B  4 // Replace the ? with the GPIO pin you selected to connect encoder B
+#define PWM 15  // Replace the ? with the GPIO pin you selected to output PWM
 
 // encoder output value
 int A_data=0;
@@ -13,12 +13,20 @@ int B_data=0;
 String command;
 
 void setup() {
-  /*setup baud and pin mode */
-    ???
+  // Initialize Serial communication (use 115200 - standard & reliable)
+  Serial.begin(115200);
+  delay(200);  // Give time for Serial Monitor to connect
 
+  // Set pin modes
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(PWM, OUTPUT);
+  pinMode(A, INPUT);
+  pinMode(B, INPUT);
+  
   /*Set rotation direction as forward rotation (CCW)*/
-  digitalWrite(IN1, ?);
-  digitalWrite(IN2, ?);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
 
 }
 
@@ -29,28 +37,28 @@ void loop() {
         command.trim(); // Remove any leading or trailing whitespace
         if (command == "0") {
         // output PWM signals with 0% duty cycle
-        analogWrite(PWM,?);  
+        analogWrite(PWM,0);  
         } 
         else if (command == "25") {
         // output PWM signals with 25% duty cycle
-        analogWrite(PWM,?);   
+        analogWrite(PWM,64);   
         }
         else if (command == "50") {
         // output PWM signals with 50% duty cycle
-        analogWrite(PWM,?);   
+        analogWrite(PWM,128);   
         }
         else if (command == "75") {
         // output PWM signals with 75% duty cycle
-        analogWrite(PWM,?);   
+        analogWrite(PWM,192);   
         }
         else if (command == "100") {
         // output PWM signals with 100% duty cycle
-        analogWrite(PWM,?);   
+        analogWrite(PWM,255);   
         }
         }
     // Read values of A and B
-    A_data=???;
-    B_data=???;
+    A_data=digitalRead(A);
+    B_data=digitalRead(B);
     // Plot A B in Serial Plotter
     Serial.print("A:");
     Serial.print(A_data);
